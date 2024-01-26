@@ -16,6 +16,8 @@ public class ClientConnect {
         int portNumber = 1777;
         String command = "";
 
+        // GIT TEST
+
         // add properties file to instance
         // add reader to get data from file
         p = new Properties();

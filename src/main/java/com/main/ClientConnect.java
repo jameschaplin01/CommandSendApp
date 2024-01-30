@@ -23,10 +23,13 @@ public class ClientConnect {
         // loads data into properties object
         p.load(is);
 
-        socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
+        // socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
+        socket1 = new Socket("192.168.1.11", 3000);
 
+        // reads from printer (Server)
         BufferedReader br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
 
+        // writes to printer (Server)
         PrintWriter pw = new PrintWriter(socket1.getOutputStream(), true);
 
         // to enter from command prompt
@@ -50,6 +53,24 @@ public class ClientConnect {
 
             if (command.equals("Close"))
                 break;
+
+            // Assuming socket is connected and not null
+
+            if(socket1 != null){
+                System.out.println("does this run");
+                // only works when there is a reply!!!! check that the message sent is expecting a response or don't send
+                String input = br.readLine();
+                System.out.println(input);
+                if(socket1.getInputStream().available() > 0){
+                    System.out.println("this runs");
+                    byte[] buffer;
+                    buffer = new byte[socket1.getInputStream().available()];
+                    socket1.getInputStream().read(buffer);
+
+                    // Your code here to deal with buffer.
+
+                }
+            }
         }
 
         br.close();
